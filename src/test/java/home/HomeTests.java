@@ -14,7 +14,10 @@ public class HomeTests extends LifeCycle {
 
     @Override
     protected void onSetup() {
+        // Arrange
         storeHome = injector.getInstance(StoreHome.class);
+
+        // Act
         storeHome.navigateTo();
     }
 
@@ -22,6 +25,7 @@ public class HomeTests extends LifeCycle {
     @Tag("home")
     @Test
     public void verifyTitle() {
+        // Assert
         assertEquals("Emulsive Store", storeHome.getTitle());
     }
 }
