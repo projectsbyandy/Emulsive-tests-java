@@ -38,3 +38,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Maven wrapper downloaded distribution
+.mvn/wrapper/maven-wrapper.jar

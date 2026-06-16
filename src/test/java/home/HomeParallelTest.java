@@ -1,10 +1,10 @@
 package home;
 
-import andycprojects.ui.StoreHome;
-import org.junit.jupiter.api.Test;
-import support.LifeCycle;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import andycprojects.ui.StoreHome;
+import support.LifeCycle;
 
 public class HomeParallelTest extends LifeCycle {
     private StoreHome storeHome;

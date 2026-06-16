@@ -18,10 +18,6 @@ public class ConfigLoader {
         return mapper.apply(getConfig().getConfig(rootPath));
     }
 
-    public static void resetCache() {
-        cachedConfig = null;
-    }
-
     private static synchronized Config getConfig() {
         if (cachedConfig == null) {
             String env = System.getProperty("env",
