@@ -10,6 +10,6 @@ public class ConfigManager extends AbstractModule {
     @Provides
     @Singleton
     TestConfig getTestConfig() {
-        return ConfigLoader.load(TestConfig.class);
+        return ConfigLoader.load();
     }
 }

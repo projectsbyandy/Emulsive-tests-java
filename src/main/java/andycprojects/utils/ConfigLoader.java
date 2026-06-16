@@ -1,21 +1,23 @@
 package andycprojects.utils;
 
+import andycprojects.models.config.TestConfig;
+import andycprojects.models.testdata.User;
+import andycprojects.models.testdata.UserType;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigBeanFactory;
 import com.typesafe.config.ConfigFactory;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ConfigLoader {
     private static Config cachedConfig;
+    private static Map<UserType, User> cachedUsers;
 
-    public static <T> T load(Class<T> configClass) {
-        return ConfigBeanFactory.create(getConfig(), configClass);
-    }
-    public static <T> T load(Class<T> configClass, String rootPath) {
-        return ConfigBeanFactory.create(getConfig().getConfig(rootPath), configClass);
-    }
-
-    public static <T> T loadAsRecord(String rootPath, java.util.function.Function<Config, T> mapper) {
-        return mapper.apply(getConfig().getConfig(rootPath));
+    public static TestConfig load() {
+        TestConfig config = ConfigBeanFactory.create(getConfig(), TestConfig.class);
+        config.setResolvedUsers(cachedUsers);
+        return config;
     }
 
     private static synchronized Config getConfig() {
@@ -28,7 +30,26 @@ public class ConfigLoader {
                     .withFallback(ConfigFactory.parseResources(env+"-config.conf"))
                     .withFallback(ConfigFactory.load())
                     .resolve();
+
+            cachedUsers = getUsers(cachedConfig);
         }
+
         return cachedConfig;
+    }
+
+    private static Map<UserType, User> getUsers(Config config) {
+        Config usersConfig = config.getConfig("users");
+
+        return Arrays.stream(UserType.values())
+                .collect(Collectors.toMap(
+                        userType -> userType,
+                        userType -> {
+                            Config userConfig = usersConfig.getConfig(userType.getConfigKey());
+                            return new User(
+                                    userConfig.getString("email"),
+                                    userConfig.getString("password")
+                            );
+                        }
+                ));
     }
 }

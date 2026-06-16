@@ -14,6 +14,7 @@ public class PlaywrightHooks {
         playwright = Playwright.create();
         browser = createBrowser(playwright, testConfig);
         browserContext = browser.newContext();
+        browserContext.setDefaultTimeout(testConfig.getBrowser().getElementTimeoutMs());
         page = browserContext.newPage();
     }
 

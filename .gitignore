@@ -39,5 +39,11 @@ build/
 ### Mac OS ###
 .DS_Store
 
+# playright trace location
+traces/*
+
+# local test config
+local-config.conf
+
 # Maven wrapper downloaded distribution
 .mvn/wrapper/maven-wrapper.jar

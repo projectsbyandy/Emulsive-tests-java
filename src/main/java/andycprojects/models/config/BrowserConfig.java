@@ -4,6 +4,7 @@ public class BrowserConfig {
     private String browserInTest;
     private Boolean isHeadless;
     private Boolean traceEnabled;
+    private int elementTimeoutMs;
 
     public String getBrowserInTest() {
         return browserInTest;
@@ -27,5 +28,13 @@ public class BrowserConfig {
 
     public void setTraceEnabled(Boolean traceEnabled) {
         this.traceEnabled = traceEnabled;
+    }
+
+    public int getElementTimeoutMs() {
+        return elementTimeoutMs;
+    }
+
+    public void setElementTimeoutMs(int elementTimeoutMs) {
+        this.elementTimeoutMs = elementTimeoutMs;
     }
 }

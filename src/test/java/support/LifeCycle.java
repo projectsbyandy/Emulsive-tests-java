@@ -23,7 +23,7 @@ import support.hooks.TraceHooks;
 @ExtendWith(TestFailureTrackingExtension.class)
 public abstract class LifeCycle implements TestWatcher {
     // Per test
-    private TestConfig testConfig;
+    protected TestConfig testConfig;
     protected Injector injector;
     protected boolean testFailed;
     private PlaywrightHooks playwrightHooks;
@@ -36,8 +36,7 @@ public abstract class LifeCycle implements TestWatcher {
 
     @BeforeEach
     void setupDependencies() {
-        testConfig = ConfigLoader.load(TestConfig.class);
-
+        testConfig = ConfigLoader.load();
         playwrightHooks = new PlaywrightHooks();
         playwrightHooks.setupPlaywrightComponents(testConfig);
 

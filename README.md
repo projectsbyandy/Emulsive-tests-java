@@ -17,10 +17,19 @@ This is a UI automation framework that uses
 # Getting Started
 ## Pre-req
 1. Launch the Emulsive TS Store locally
-  - navigate to the GitHub project [home](https://github.com/projectsbyandy/emulsive-ts-store) and clone the repo
-  - set up the project by executing `npm install`
-  - start the services (ui, api, image server) executing `npm run all`
-  - OPTIONAL - run `npm run tests:playwright` to run regression tests to ensure website is functional.
+   - navigate to the GitHub project [home](https://github.com/projectsbyandy/emulsive-ts-store) and clone the repo
+   - set up the project by executing `npm install`
+   - start the services (ui, api, image server) executing `npm run all`
+   - OPTIONAL - run `npm run tests:playwright` to run regression tests to ensure website is functional.
+1. Create a `local-config.conf` and populate with the following:
+    ```
+    users {
+        "testUser" = {
+          password = "1234"
+        }
+    }
+    ```
+   This will layer the credentials on top of the values found in `common-config.conf`
 1. Navigate to the `EmulsiveStoreUi` project and execute to run `mvn test` java playwright tests.
 
 # Test lifecycle
