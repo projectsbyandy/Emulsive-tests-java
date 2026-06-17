@@ -2,8 +2,12 @@ package support.hooks;
 
 import andycprojects.models.config.TestConfig;
 import com.microsoft.playwright.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PlaywrightHooks {
+
+    private static final Logger log = LoggerFactory.getLogger(PlaywrightHooks.class);
 
     private Playwright playwright;
     private Browser browser;
@@ -16,12 +20,16 @@ public class PlaywrightHooks {
         browserContext = browser.newContext();
         browserContext.setDefaultTimeout(testConfig.getBrowser().getElementTimeoutMs());
         page = browserContext.newPage();
+
+        log.info("Playwright components setup: playwright: " + playwright.hashCode());
     }
 
     public void teardownPlaywrightComponents() {
         if (browserContext != null) browserContext.close();
         if (browser != null) browser.close();
         if (playwright != null) playwright.close();
+        log.info("Playwright components teardown complete");
+
     }
 
     private static Browser createBrowser(Playwright playwright, TestConfig testConfig) {

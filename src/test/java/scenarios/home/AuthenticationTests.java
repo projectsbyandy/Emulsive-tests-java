@@ -1,4 +1,4 @@
-package home;
+package scenarios.home;
 
 import andycprojects.models.testdata.UserType;
 import andycprojects.models.ui.NavSection;
