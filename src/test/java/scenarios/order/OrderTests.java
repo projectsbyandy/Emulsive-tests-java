@@ -17,7 +17,7 @@ public class OrderTests extends LifeCycle {
         loginHelper = injector.getInstance(LoginHelper.class);
         storeHome = injector.getInstance(StoreHome.class);
         productsHelper = injector.getInstance(ProductsHelper.class);
-        storeHome.navigateTo();
+        storeHome.goTo();
     }
 
     @Test

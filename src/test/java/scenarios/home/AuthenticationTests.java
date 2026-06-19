@@ -24,7 +24,7 @@ public class AuthenticationTests extends LifeCycle
         StoreHome storeHome = injector.getInstance(StoreHome.class);
         loginPage = injector.getInstance(LoginPage.class);
         header = injector.getInstance(Header.class);
-        storeHome.navigateTo();
+        storeHome.goTo();
     }
 
     @Test

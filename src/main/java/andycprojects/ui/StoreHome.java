@@ -2,13 +2,14 @@ package andycprojects.ui;
 
 import andycprojects.models.config.TestConfig;
 import andycprojects.models.product.ProductOverview;
+import andycprojects.ui.common.INavigateTo;
 import andycprojects.ui.common.ProductGrid;
 import com.google.inject.Inject;
 import com.microsoft.playwright.Page;
 
 import java.util.List;
 
-public class StoreHome {
+public class StoreHome implements INavigateTo {
     private final Page page;
     private final TestConfig testConfig;
     private final ProductGrid productGrid;
@@ -21,7 +22,7 @@ public class StoreHome {
         this.productGrid = productGrid;
     }
 
-    public void navigateTo() {
+    public void goTo() {
         page.navigate(testConfig.getStore().getUrl());
     }
 

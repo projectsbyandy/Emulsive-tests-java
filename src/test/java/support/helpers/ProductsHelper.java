@@ -18,6 +18,6 @@ public class ProductsHelper {
 
     public void addProductsToCart(String productName, int quantity) {
         header.navLinks().select(NavSection.Products);
-        productsPage.filterSection().set(FilterOption.Keyword, productName);
+        productsPage.filterSection().set(FilterOption.Format, "35mm");
     }
 }

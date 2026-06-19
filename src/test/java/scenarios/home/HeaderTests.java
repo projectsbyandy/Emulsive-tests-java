@@ -23,7 +23,7 @@ public class HeaderTests extends LifeCycle {
         loginPage = injector.getInstance(LoginPage.class);
 
         // Act
-        storeHome.navigateTo();
+        storeHome.goTo();
     }
 
     @Tag("smoke")

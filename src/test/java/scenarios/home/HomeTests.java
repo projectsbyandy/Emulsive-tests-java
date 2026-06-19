@@ -21,7 +21,7 @@ public class HomeTests extends LifeCycle {
         storeHome = injector.getInstance(StoreHome.class);
 
         // Act
-        storeHome.navigateTo();
+        storeHome.goTo();
     }
 
     @Tag("smoke")
