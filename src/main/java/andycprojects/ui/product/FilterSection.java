@@ -24,4 +24,8 @@ public class FilterSection {
         page.waitForCondition(() -> page.url().contains(filterOption.name().toLowerCase()));
         return filterOption.getValue(page);
     }
+
+    public void reset() {
+        page.getByTestId("reset").click();
+    }
 }

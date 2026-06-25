@@ -7,20 +7,23 @@ import support.LifeCycle;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
+import support.tags.SetupPerClass;
 
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SetupPerClass
 public class FilterTests extends LifeCycle {
 
     private StoreHome storeHome;
     private ProductsPage productsPage;
 
     @Override
-    protected void onSetup() {
-        storeHome = injector.getInstance(StoreHome.class);
-        productsPage = injector.getInstance(ProductsPage.class);
+    public void onSetup() {
+        storeHome = get(StoreHome.class);
+        productsPage = get(ProductsPage.class);
+
         storeHome.goTo();
     }
 
@@ -31,6 +34,7 @@ public class FilterTests extends LifeCycle {
         productsPage.goTo();
 
         // Act
+        productsPage.filterSection().reset();
         productsPage.filterSection().set(option, input);
 
         // Assert
@@ -39,7 +43,7 @@ public class FilterTests extends LifeCycle {
 
     static Stream<Arguments> filterCases() {
         return Stream.of(
-                Arguments.of("Keyword filter", FilterOption.Keyword, "junit", "junit"),
+                Arguments.of("Keyword filter", FilterOption.Keyword, "portra", "portra"),
                 Arguments.of("Format filter", FilterOption.Format, "35mm", "35mm"),
                 Arguments.of("OnSale filter", FilterOption.OnSale, "checked", "on"),
                 Arguments.of("OrderBy filter", FilterOption.OrderBy, "z-a", "z-a"),

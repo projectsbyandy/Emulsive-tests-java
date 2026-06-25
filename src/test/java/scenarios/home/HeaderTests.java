@@ -8,19 +8,23 @@ import com.microsoft.playwright.assertions.LocatorAssertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import support.LifeCycle;
+import support.tags.SetupPerClass;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
+@SetupPerClass
 public class HeaderTests extends LifeCycle {
+
     private Header header;
+
     private LoginPage loginPage;
 
     @Override
-    protected void onSetup() {
+    public void onSetup() {
         // Arrange
-        StoreHome storeHome = injector.getInstance(StoreHome.class);
-        header = injector.getInstance(Header.class);
-        loginPage = injector.getInstance(LoginPage.class);
+        StoreHome storeHome = get(StoreHome.class);
+        header = get(Header.class);
+        loginPage = get(LoginPage.class);
 
         // Act
         storeHome.goTo();

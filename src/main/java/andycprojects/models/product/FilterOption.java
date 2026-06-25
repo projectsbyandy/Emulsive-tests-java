@@ -3,6 +3,7 @@ package andycprojects.models.product;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.WaitForSelectorState;
 
 import java.util.function.Function;
 
@@ -101,6 +102,7 @@ public enum FilterOption {
 
         var percentage = (Float.parseFloat(value) / maxPrice) * 100;
 
+        slider.waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
         var box = slider.boundingBox();
 
         if (box == null) throw new Error("Bounding box is null");

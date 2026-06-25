@@ -5,6 +5,7 @@ import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Tracing;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestReporter;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +38,7 @@ public class TraceHooks {
                     .setSources(true));
     }
 
-    public void stopTrace(boolean testFailed, TestInfo testInfo, TestReporter testReporter) {
+    public void stopTrace(boolean testFailed, ExtensionContext context) {
         if (!testConfig.getBrowser().getTraceEnabled())
             return;
 
@@ -46,7 +47,7 @@ public class TraceHooks {
             return;
         }
 
-        var safeName = testInfo.getDisplayName()
+        var safeName = context.getDisplayName()
                 .replaceAll("[()]", "")
                 .replaceAll("[^a-zA-Z0-9]", "_");
 
@@ -61,9 +62,9 @@ public class TraceHooks {
 
         log.error("Test failed, trace saved to {}", absolutePath);
 
-        testReporter.publishEntry(Map.of(
+        context.publishReportEntry(Map.of(
                 "trace", absolutePath.toString(),
-                "test", testInfo.getDisplayName(),
+                "test", context.getDisplayName(),
                 "browser", testConfig.getBrowser().getBrowserInTest()
         ));
     }

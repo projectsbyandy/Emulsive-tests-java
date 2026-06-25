@@ -2,25 +2,28 @@ package scenarios.home;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import andycprojects.models.config.TestConfig;
 import andycprojects.models.product.ProductOverview;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import andycprojects.ui.StoreHome;
 import support.LifeCycle;
+import support.tags.SetupPerClass;
 
 import java.util.List;
 
+@SetupPerClass
 public class HomeTests extends LifeCycle {
 
     private StoreHome storeHome;
+    private TestConfig testConfig;
 
     @Override
-    protected void onSetup() {
-        // Arrange
-        storeHome = injector.getInstance(StoreHome.class);
-
-        // Act
+    public void onSetup() {
+        // Arrange / Act
+        storeHome = get(StoreHome.class);
+        testConfig = get(TestConfig.class);
         storeHome.goTo();
     }
 
