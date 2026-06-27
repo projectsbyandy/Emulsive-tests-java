@@ -6,6 +6,8 @@ import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.LoadState;
 import jakarta.inject.Inject;
 
+import java.util.Arrays;
+
 public class FilterSection {
     private final Page page;
 
@@ -27,5 +29,7 @@ public class FilterSection {
 
     public void reset() {
         page.getByTestId("reset").click();
+        Arrays.stream(FilterOption.values())
+                .forEach(v -> v.HasDefaultValue(page));
     }
 }

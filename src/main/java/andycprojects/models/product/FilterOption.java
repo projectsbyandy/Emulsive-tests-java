@@ -7,6 +7,8 @@ import com.microsoft.playwright.options.WaitForSelectorState;
 
 import java.util.function.Function;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 public enum FilterOption {
     Keyword(page -> page.locator("#keyword")) {
         @Override
@@ -17,6 +19,11 @@ public enum FilterOption {
         @Override
         public String getValue(Page page) {
             return locator.apply(page).getAttribute("value");
+        }
+
+        @Override
+        public void HasDefaultValue(Page page) {
+            assertThat(locator.apply(page)).hasValue("");
         }
     },
     Format(page -> page.locator("#format")) {
@@ -29,6 +36,11 @@ public enum FilterOption {
         public String getValue(Page page) {
             return locator.apply(page).textContent();
         }
+
+        @Override
+        public void HasDefaultValue(Page page) {
+            assertThat(locator.apply(page)).hasText("all");
+        }
     },
     Manufacturer(page -> page.locator("#manufacturer")) {
         @Override
@@ -39,6 +51,11 @@ public enum FilterOption {
         @Override
         public String getValue(Page page) {
             return locator.apply(page).textContent();
+        }
+
+        @Override
+        public void HasDefaultValue(Page page) {
+            assertThat(locator.apply(page)).hasText("all");
         }
     },
     OrderBy(page -> page.locator("#orderby")) {
@@ -51,6 +68,11 @@ public enum FilterOption {
         public String getValue(Page page) {
             return locator.apply(page).textContent();
         }
+
+        @Override
+        public void HasDefaultValue(Page page) {
+            assertThat(locator.apply(page)).hasText("a-z");
+        }
     },
     Price(page -> page.locator("#price")) {
         @Override
@@ -60,8 +82,13 @@ public enum FilterOption {
 
         @Override
         public String getValue(Page page) {
-            var pence = page.locator("#price span input").getAttribute("value");
+            var pence = page.locator("#price input").inputValue();
             return String.valueOf(Integer.parseInt(pence) / 100);
+        }
+
+        @Override
+        public void HasDefaultValue(Page page) {
+            assertThat(page.locator("#price input")).hasValue("3000");
         }
     },
     OnSale(page -> page.getByRole(AriaRole.CHECKBOX, new Page.GetByRoleOptions().setName("On Sale"))) {
@@ -77,11 +104,18 @@ public enum FilterOption {
         public String getValue(Page page) {
             return locator.apply(page).getAttribute("value");
         }
+
+        @Override
+        public void HasDefaultValue(Page page) {
+            assertThat(locator.apply(page)).not().isChecked();
+        }
     };
 
     public abstract void setValue(Page page, String value);
 
     public abstract String getValue(Page page);
+
+    public abstract void HasDefaultValue(Page page);
 
     final Function<Page, Locator> locator;
 
